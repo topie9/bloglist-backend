@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "watch": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "watch": "cross-env NODE_ENV=development nodemon index.js",
     "lint": "eslint .",
-    "test": "jest --verbose"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "repository": {
     "type": "git",
@@ -23,13 +23,16 @@
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "mongoose": "^5.6.3"
+    "mongoose": "^5.6.3",
+    "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "eslint": "^6.0.1",
     "jest": "^24.8.0",
     "lodash": "^4.17.11",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   },
   "jest": {
     "testEnvironment": "node"
