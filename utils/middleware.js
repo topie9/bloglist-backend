@@ -1,10 +1,10 @@
 const logger = require('./logger')
 
 const requestLogger = (req, res, next) => {
-  logger.log('Method:', req.method)
-  logger.log('Path:  ', req.path)
-  logger.log('Body:  ', req.body)
-  logger.log('---')
+  logger.info('Method:', req.method)
+  logger.info('Path:  ', req.path)
+  logger.info('Body:  ', req.body)
+  logger.info('---')
   next()
 }
 

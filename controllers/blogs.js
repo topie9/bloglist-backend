@@ -11,11 +11,32 @@ blogsRouter.get('/', async (req, res, next) => {
 })
 
 blogsRouter.post('/', async (req, res, next) => {
-  const blog = new Blog(req.body)
-
   try {
+    const blog = new Blog(req.body)
+
     const savedBlog = await blog.save()
     res.json(savedBlog.toJSON())
+  } catch(exception) {
+    next(exception)
+  }
+})
+
+blogsRouter.put('/:id', async (req, res, next) => {
+  try {
+    const blog = req.body
+
+    const updatedBLog = await Blog.findByIdAndUpdate(blog.id, blog, { new: true })
+    res.json(updatedBLog.toJSON())
+
+  } catch(exception) {
+    next(exception)
+  }
+})
+
+blogsRouter.delete('/:id', async (req, res, next) => {
+  try {
+    await Blog.findByIdAndRemove(req.params.id)
+    res.status(204).end()
   } catch(exception) {
     next(exception)
   }
