@@ -1,9 +1,10 @@
 post http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer TOKENHERE
 
 {
-  "title": "Test linking user",
-  "author": "Authoer",
-  "url": "auth.blog",
+  "title": "Using token to auth",
+  "author": "Tester",
+  "url": "localhost",
   "likes": "0"
 }
