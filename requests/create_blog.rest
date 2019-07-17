@@ -3,8 +3,8 @@ Content-Type: application/json
 Authorization: bearer TOKENHERE
 
 {
-  "title": "Using token to auth",
+  "title": "Made with token extractor",
   "author": "Tester",
   "url": "localhost",
-  "likes": "0"
+  "likes": "1"
 }
