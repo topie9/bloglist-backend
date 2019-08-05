@@ -47,7 +47,10 @@ blogsRouter.put('/:id', async (req, res, next) => {
     const blog = req.body
 
     const updatedBLog = await Blog.findByIdAndUpdate(req.params.id, blog, { new: true })
-    res.json(updatedBLog.toJSON())
+    const updatedBLogWithUserData = await Blog
+      .findOne({ _id: updatedBLog._id })
+      .populate('user', { username: 1, name: 1 })
+    res.json(updatedBLogWithUserData.toJSON())
 
   } catch(exception) {
     next(exception)
@@ -70,6 +73,24 @@ blogsRouter.delete('/:id', async (req, res, next) => {
     } else {
       res.status(401).json({ error: 'only user who created the blog can delete it' })
     }
+  } catch(exception) {
+    next(exception)
+  }
+})
+
+blogsRouter.post('/:id/comments', async (req, res, next) => {
+  const body = req.body
+
+  try {
+    const blog = await Blog.findById(req.params.id)
+    blog.comments = blog.comments.concat(body.comment)
+    const savedBlog = await blog.save()
+    const blogAndUserData = await Blog
+      .findOne({ _id: savedBlog._id })
+      .populate('user', { username: 1, name: 1 })
+
+    res.json(blogAndUserData.toJSON())
+
   } catch(exception) {
     next(exception)
   }
